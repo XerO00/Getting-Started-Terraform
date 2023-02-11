@@ -101,7 +101,16 @@ resource "aws_s3_bucket" "web_bucket" {
 resource "aws_s3_bucket_object" "website" {
   bucket = aws_s3_bucket.web_bucket.bucket
   key    = "/website/index.html"
-  source = "./network.tf"
+  source = "./website/index.html"
+
+  tags = local.common_tags
+
+}
+
+resource "aws_s3_bucket_object" "graphic" {
+  bucket = aws_s3_bucket.web_bucket.bucket
+  key    = "/website/Globo_logo_Vert.png"
+  source = "./website/Globo_logo_Vert.png"
 
   tags = local.common_tags
 

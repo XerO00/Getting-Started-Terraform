@@ -2,9 +2,7 @@
 # DATA
 ##################################################################################
 
-data "aws_availability_zones" "available" {
-  state = "available"
-}
+data "aws_availability_zones" "available" {}
 
 ##################################################################################
 # RESOURCES
@@ -14,7 +12,7 @@ data "aws_availability_zones" "available" {
 resource "aws_vpc" "vpc" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = var.enable_dns_hostnames
-  tags = local.common_tags
+  tags                 = local.common_tags
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -27,16 +25,16 @@ resource "aws_subnet" "subnet1" {
   cidr_block              = var.vpc_subnets_cidr_blocks[0]
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = var.map_public_ip_on_launch
-  availability_zone = data.aws_availability_zones.available.names[0]
-  tags = local.common_tags
+  availability_zone       = data.aws_availability_zones.available.names[0]
+  tags                    = local.common_tags
 }
 
 resource "aws_subnet" "subnet2" {
   cidr_block              = var.vpc_subnets_cidr_blocks[1]
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = var.map_public_ip_on_launch
-  availability_zone = data.aws_availability_zones.available.names[1]
-  tags = local.common_tags
+  availability_zone       = data.aws_availability_zones.available.names[1]
+  tags                    = local.common_tags
 }
 
 # ROUTING #
@@ -64,7 +62,7 @@ resource "aws_route_table_association" "assoc-rtb-subnet2" {
 resource "aws_security_group" "nginx-sg" {
   name   = "nginx_sg"
   vpc_id = aws_vpc.vpc.id
-  
+
   # HTTP access from anywhere
   ingress {
     from_port   = 80

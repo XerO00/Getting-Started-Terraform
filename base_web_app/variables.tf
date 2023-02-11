@@ -1,7 +1,7 @@
 variable "ssm_parameter_ami" {
-    type = string
-    description = "ssm parameter name having ami value"
-    default = "Golden-AMI-ECS-Amazon2"
+  type        = string
+  description = "ssm parameter name having ami value"
+  default     = "Golden-AMI-ECS-Amazon2"
 }
 
 variable "aws_region" {
