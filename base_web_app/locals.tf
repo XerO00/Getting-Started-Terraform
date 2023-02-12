@@ -9,7 +9,9 @@ locals {
     company      = var.company
     project      = "${var.company}-${var.project}"
     billing_code = var.billing_code
+    environment  = terraform.workspace
   }
 
-  s3_bucket_name = "tavisca-web-app-${random_integer.rand.result}"
+  name_prefix    = "${var.naming_prefix}-web-app-${terraform.workspace}"
+  s3_bucket_name = lower("${local.name_prefix}-${random_integer.rand.result}")
 }
